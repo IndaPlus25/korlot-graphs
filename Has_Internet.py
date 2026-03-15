@@ -24,10 +24,6 @@ def control_connection(house):
                 if neighbour not in _visited:
                         stack.append(neighbour)
 
-    #for connected in houses[house].connecting:
-    #     if connected not in _visited:
-    #          control_connection(connected)
-
 if int(data[0]) == 1:
     print("Connected")
  
