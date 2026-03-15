@@ -6,13 +6,23 @@ current_output = "-1"
 current_depth = 0
 visited = set()
 
-#Seperate row numbers to a list in a list
-for row in range(2, len(data)):
-    _temp_data = []
-    _target_row = str(data[row])
-    for integer in range(len(_target_row)):
-        _temp_data.append(_target_row[integer])
-    grid.append(_temp_data)
+def new_point(row, col):
+    _new_list = []
+    _current_value = int(grid[row][col])
+
+    #Add new coordinates if valid for +- active value
+    if (row + _current_value) != (row) and (row + _current_value) <= int(data[0]):
+        _new_list.append([str(row + _current_value),str(col)])
+
+    if (row - _current_value) != (row) and (row - _current_value) >= 0:
+        _new_list.append([str(row - _current_value),str(col)])
+
+    if (col + _current_value) != (col) and (col + _current_value) <= int(data[1]):
+        _new_list.append([str(row), str(col + _current_value)])
+
+    if (col - _current_value) != (col) and (col - _current_value) >= 0:
+        _new_list.append([str(row), str(col - _current_value)])
+    return _new_list
 
 #Move to the next place
 def goto_next(row, col):
@@ -21,18 +31,14 @@ def goto_next(row, col):
         active = stack.pop()
         if active not in visited:
             visited.add(active)
-            _new_list = []
-
-            #Add new coordinates if valid for +- active value
-            if (int(active[0])+int(grid[row][col])) <= int(data[0]):
-                _new_list.append([(int(active[0])+int(grid[row][col])),col])
-
-            if (int(active[0])-int(grid[row][col])) >= 0:
-                new_list.append([(int(active[0])-int(grid[row][col])),col])
-
-            if (int(active[1])+int(grid[row][col])) <= int(data[1]):
-                _new_list.append([row, int(active[1])+int(grid[row][col])])
-
-            if (int(active[1])-int(grid[row][col])) >= 0:
-                _new_list.append([row, int(active[1])-int(grid[row][col])])
+            _new_point(active[0], active[1])
             
+            
+
+#Seperate row numbers to a list in a list
+for row in range(2, len(data)):
+    _temp_data = []
+    _target_row = str(data[row])
+    for integer in range(len(_target_row)):
+        _temp_data.append(_target_row[integer])
+    grid.append(_temp_data)
