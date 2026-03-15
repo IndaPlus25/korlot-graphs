@@ -21,22 +21,18 @@ def goto_next(row, col):
         active = stack.pop()
         if active not in visited:
             visited.add(active)
-            #see if active number +- a direction will give a new valid target
-            try:
-                goto_next(row+int(grid[row][col]), col)
-            except:
-                continue
-            try:
-                goto_next(row, col+int(grid[row][col]))
-            except:
-                continue
-            try:
-                goto_next(row-int(grid[row][col]), col)
-            except:
-                continue
-            try:
-                goto_next(row, col-int(grid[row][col]))
-            except:
-                continue
-    
-        
+            _new_list = []
+
+            #Add new coordinates if valid for +- active value
+            if (int(active[0])+int(grid[row][col])) <= int(data[0]):
+                _new_list.append([(int(active[0])+int(grid[row][col])),col])
+
+            if (int(active[0])-int(grid[row][col])) >= 0:
+                new_list.append([(int(active[0])-int(grid[row][col])),col])
+
+            if (int(active[1])+int(grid[row][col])) <= int(data[1]):
+                _new_list.append([row, int(active[1])+int(grid[row][col])])
+
+            if (int(active[1])-int(grid[row][col])) >= 0:
+                _new_list.append([row, int(active[1])-int(grid[row][col])])
+            
