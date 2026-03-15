@@ -2,7 +2,7 @@ import sys
 
 data = sys.stdin.read().split()
 grid = []
-current_depth = -1
+current_depth = 0
 visited = set()
 
 #Add new coordinates if valid for +- active value
@@ -53,8 +53,9 @@ for row in range(2, len(data)):
     grid.append(_temp_data)
 
 start = [[0,0]]
+visited.add((0,0))
 
-while (data[0], data[1]) not in visited and start:
+while (int(data[0])-1, int(data[1])-1) not in visited and start:
     current_depth +=1
     start = next_depth(start)
 if ((int(data[0])-1), (int(data[1])-1)) in visited:
